@@ -1,0 +1,122 @@
+set AP to 60.
+set PE to 35.
+//set ap_alt to 13143021.
+//set pe_alt to 12976722.
+set ap_alt to 70000.
+set pe_alt to 70000.
+set t_aggression to .1.
+
+
+function getlowestfuel{
+    parameter part.
+    set resources to part:resources.
+    if resources:length = 0 {
+        return 100.
+    }
+    local lowest is 100000000.
+    from {local idx is 0.} until idx = resources:length - 1 step {set idx to idx + 1.} do {
+        if resources[idx]:name = "LiquidFuel" {
+            set fuel to resources[idx]:amount.
+            if fuel < lowest {
+                set lowest to fuel.
+            }
+        }
+    }
+    return lowest.
+}
+
+function checkfuel {// check if there are any empty fuel tanks, if so stage (assume it decouples the first to empty)
+    from {local idx is 0.} until idx = ship:parts:length - 1 step {set idx to idx + 1.} do {
+        set part to ship:parts[idx].
+        set fuel to getlowestfuel(part).
+        if fuel < .1 {
+                print "empty fuel tank" + part:title.
+                stage.
+                return.
+        }
+    }
+}
+
+
+wait until ship:unpacked.
+
+clearscreen.
+
+set mythrottle to 0.
+lock throttle to mythrottle.
+
+print "Countdown".
+
+from {local countdown is 10.} until countdown = 0 step {set countdown to countdown - 1.} do {
+    print countdown.
+    wait 1.
+}
+stage.
+set mythrottle to 1.
+print "Liftoff".
+
+SAS ON.
+
+until ship:altitude > 1000 {
+    checkfuel().
+    wait .1.
+}
+
+print "Initiating turn".
+sas off.
+lock steering to heading(90,70).
+
+until ship:altitude > 5000 {
+    checkfuel().
+    wait .1.
+}
+print "Heading prograde until apoapsis above " + ap_alt/1000 + "km".
+unlock steering.
+sas on.
+wait .2.
+set sasmode to "PROGRADE".
+
+
+until ship:apoapsis > ap_alt {// set apoapsis
+    checkfuel().
+    if ship:obt:eta:apoapsis < AP-1 {
+        checkfuel().
+        if mythrottle<1{
+            set mythrottle to (AP-ship:obt:eta:apoapsis)*t_aggression.
+        }
+        if mythrottle>1{
+            set mythrottle to 1.
+        }
+        wait .001.
+    }
+    if ship:obt:eta:apoapsis > AP+1 {
+        set mythrottle to 0.
+    }
+}
+print "Apoapsis is above " + ap_alt/1000 + "km".
+print "Waiting until ETA to Apoapsis is " + PE + "s before
+heading prograde until periapsis is " + pe_alt/1000 + "km".
+unlock steering.
+sas on.
+wait .1.
+set sasmode to "PROGRADE".
+
+until ship:periapsis > pe_alt {// set periapsis
+    checkfuel().
+    if ship:obt:eta:apoapsis < PE-1 {
+        checkfuel().
+        if mythrottle<1{
+            set mythrottle to (PE-ship:obt:eta:apoapsis)*t_aggression.
+        }
+        if mythrottle>1{
+            set mythrottle to 1.
+        }
+        wait .001.
+    }
+    if ship:obt:eta:apoapsis > PE+1 {
+        set mythrottle to 0.
+    }
+}
+print "Pe is above 70km".
+
+deletepath("boot/obt2.ks").

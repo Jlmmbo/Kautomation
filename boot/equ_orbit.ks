@@ -1,11 +1,11 @@
 
 
 // Set these to your desired values
-set AP to 60.
-set PE to 35.
+set AP to 60. //seconds to apoapsis for adjusting apoapsis
+set PE to 35. //seconds to apoapsis for adjusting periapsis
 set ap_alt to 70000.
 set pe_alt to 70000.
-set t_aggression to .1.
+set t_aggression to .1. //how aggressive to stick to the target Ap/Pe ETA
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -95,3 +95,5 @@ until ship:periapsis > pe_alt {// set periapsis
     }
 }
 print "Pe is above 70km".
+
+deletepath("boot/pol_orbit.ks").

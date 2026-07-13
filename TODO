@@ -1,0 +1,12 @@
+equ_orbit/pol_orbit:
+ - add inclination and (LAN) variable to turn them into one script
+
+Vac_landing (precision)
+
+Atm_landing (precision)
+
+transfer_orbit:
+ - to other orbiting body (ex. kerbin->mun): simple prograde burn.
+ - to other body (ex. kerbin->Jool): escape to solar orbit, the transfer to body (idk if to deal with timing)
+
+Spaceplane_orbit

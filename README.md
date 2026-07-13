@@ -11,7 +11,7 @@ Kautomation contains kOS scripts for Kerbal Space Program automation, focused on
 
 ## Usage
 
-1. Place the scripts in your Kerbal Space Program `Ships/Script/boot/` or another accessible kOS script folder.
+1. Place the lib_ scripts in your Kerbal Space Program `Ships/Script/` and the scripts you want to use int `Ships/Script/boot`.
 2. In the VAB/SPH, click on the KOS menu-> reread boot folder -> click on the KOS cpu -> scroll through the bootfiles to the selected script -> launch
 3. Sit back and watch
 

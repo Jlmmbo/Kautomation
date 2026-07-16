@@ -48,7 +48,7 @@ print "Takeoff".
 
 lock steering to heading(90,20).
 
-wait until ship:altitude > tgt_alt * 0.90.
+wait until ship:altitude > tgt_alt * 0.10.
 
 set wpoint to allWaypoints()[0].
 for wp in allWaypoints(){

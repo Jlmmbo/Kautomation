@@ -4,17 +4,19 @@ Kautomation contains kOS scripts for Kerbal Space Program automation, focused on
 
 ## Files
 
-- `obt.ks`
-  A script to get into a (roughly) equatorial orbit at a set apoapsis and periapsis (approximate).
-- `p_obt.ks`
-  obt.ks, except for a polar orbit of kerbin
+- `equ_orbit.ks`
+  Get into a (roughly) equatorial orbit of kerbin at a set apoapsis and periapsis (approximate).
+- `pol_obt.ks`
+  `equ_obt.ks`, except for a polar orbit.
+- `plane_waypoint.ks`
+  Get to the waypoint that is selected on the map, or the first one in the list if none is selected.
 
 ## Usage
 
-1. Place the lib_ scripts in your Kerbal Space Program `Ships/Script/` and the scripts you want to use int `Ships/Script/boot`.
+1. Place the lib_ scripts in `dir/to/KSP/install/Ships/Script/` and the scripts you want to use in `dir/to/KSP/install/Ships/Script/boot`.
 2. In the VAB/SPH, click on the KOS menu-> reread boot folder -> click on the KOS cpu -> scroll through the bootfiles to the selected script -> launch
 3. Sit back and watch
 
 ## Notes
 
-- Adjust target altitudes and timing parameters inside the script files to fit different rockets.
+- Adjust flight parameters inside the script files to fit different rockets.

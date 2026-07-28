@@ -34,7 +34,7 @@ print "Liftoff".
 SAS ON.
 set sasmode to "stability".
 
-until ship:altitude > 1000 {
+until ship:airspeed > 200 {
     checkfuel().
     wait .1.
 }
@@ -43,9 +43,9 @@ print "Initiating turn".
 sas off.
 lock steering to heading(345,70).
 
-until ship:altitude > 5000 {
+until ship:obt:eta:apoapsis > 35 {
     checkfuel().
-    wait .1.
+    wait .5.
 }
 print "Heading prograde until apoapsis above " + ap_alt/1000 + "km".
 unlock steering.

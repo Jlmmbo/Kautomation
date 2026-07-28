@@ -6,7 +6,7 @@ function getlowestfuel{
     }
     local lowest is 100000000.
     from {local idx is 0.} until idx = resources:length - 1 step {set idx to idx + 1.} do {
-        if resources[idx]:name = "LiquidFuel" {
+        if (resources[idx]:name = "LiquidFuel") or (resources[idx]:name = "SolidFuel") {
             set fuel to resources[idx]:amount.
             if fuel < lowest {
                 set lowest to fuel.

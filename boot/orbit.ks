@@ -11,11 +11,6 @@ set turn_heading to 90. // direction to turn to after launch (0 is north, 90 is 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//import necessary libs
-copypath("0:/lib_fuel.ks", "1:/lib_fuel.ks").
-run "lib_fuel.ks".
-
 wait until ship:unpacked.
 
 clearscreen.
@@ -32,11 +27,14 @@ from {local countdown is 10.} until countdown = 0 step {set countdown to countdo
 stage.
 set mythrottle to 1.
 print "Liftoff".
+when ship:stagedeltav(ship:stagenum):current = 0 then{
+    stage.
+    return true.
+}
 
 SAS ON.
 
 until ship:airspeed > 200 {
-    checkfuel().
     wait .1.
 }
 
@@ -45,7 +43,6 @@ sas off.
 lock steering to heading(turn_heading,70).
 
 until ship:obt:eta:apoapsis > 35 {
-    checkfuel().
     wait .5.
 }
 print "Heading prograde until apoapsis above " + ap_alt/1000 + "km".
@@ -56,9 +53,7 @@ set sasmode to "PROGRADE".
 
 
 until ship:apoapsis > ap_alt {// set apoapsis
-    checkfuel().
     if ship:obt:eta:apoapsis < AP-1 {
-        checkfuel().
         if mythrottle<1{
             set mythrottle to (AP-ship:obt:eta:apoapsis)*t_aggression.
         }
@@ -80,9 +75,7 @@ wait .1.
 set sasmode to "PROGRADE".
 
 until ship:periapsis > pe_alt {// set periapsis
-    checkfuel().
     if ship:obt:eta:apoapsis < PE-1 {
-        checkfuel().
         if mythrottle<1{
             set mythrottle to (PE-ship:obt:eta:apoapsis)*t_aggression.
         }
@@ -97,4 +90,4 @@ until ship:periapsis > pe_alt {// set periapsis
 }
 print "Pe is above 70km".
 
-deletepath("boot/equ_orbit.ks").
+deletepath("boot/orbit.ks").

@@ -1,3 +1,11 @@
+"""
+This is a script that will Launch a spaceplane from the SPH, and log telemetry data to a CSV file.
+
+Requires kRPC to be running in KSP, and a save names [SAVE_NAME] to be loaded, with a spaceplane named [CRAFT_NAME].
+Also requires the kRPC python library to be installed in the python environment:
+pip install krpc
+"""
+
 import krpc
 import csv
 import time
@@ -9,8 +17,8 @@ import sys
 # CONFIGURATION
 # ============================================================
 
-SAVE_NAME = "AI_START"
-CRAFT_NAME = "AI_Test_Plane"
+SAVE_NAME = "START"
+CRAFT_NAME = "Test_Plane"
 
 OUTPUT_DIR = "telemetry"
 
@@ -34,7 +42,7 @@ print("Connecting to KSP...")
 
 try:
     conn = krpc.connect(
-        name="AI Autopilot Experiment",
+        name="Autopilot Experiment",
         address="127.0.0.1",
         rpc_port=50000,
         stream_port=50001

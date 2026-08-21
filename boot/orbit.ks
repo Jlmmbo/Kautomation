@@ -6,7 +6,7 @@ set PE to 35. //seconds to apoapsis for adjusting periapsis
 set ap_alt to 70000.
 set pe_alt to 70000.
 set t_aggression to .1. //how aggressive to stick to the target Ap/Pe ETA
-set turn_heading to -90. // direction to turn to after launch (0 is north, 90 is east, 180 is south, -90 is west)
+set turn_heading to 90. // direction to turn to after launch (0 is north, 90 is east, 180 is south, -90 is west)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
